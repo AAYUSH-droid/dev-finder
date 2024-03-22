@@ -2,14 +2,18 @@ import { db } from '@/db';
 import GetLoggedInUser from './user';
 
 export default async function Home() {
-  const items = await db.query.testing.findMany();
+  const rooms = await db.query.room.findMany();
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      {items.map((item) => {
-        return <div key={item.id}>{item.name}</div>;
+      {rooms.map((room) => {
+        return (
+          <div key={room.id}>
+            {room.name} , {room.id}
+          </div>
+        );
       })}
-      <div className='pb-10 mx-auto'>
+      <div className='pb-5 mx-auto'>
         <GetLoggedInUser />
       </div>
     </main>

@@ -6,8 +6,10 @@ import {
   timestamp,
   primaryKey,
   integer,
+  uuid,
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccount } from '@auth/core/adapters';
+import { sql } from 'drizzle-orm';
 
 export const testing = pgTable('testing', {
   id: text('id').notNull().primaryKey(),
@@ -65,3 +67,21 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+// room table for storing room data
+export const room = pgTable('room', {
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`)
+    .notNull(),
+  //refrencing room with userID incase user deletes his acc the room associated with him will also be deleted
+  userId: text('userId')
+    // .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  description: text('description'),
+  tags: text('tags').notNull(),
+  githubRepo: text('githubRepo'),
+});
+
+export type Room = typeof room.$inferSelect;
