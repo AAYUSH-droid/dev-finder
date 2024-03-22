@@ -18,8 +18,10 @@ export default function GetLoggedInUser() {
     template: 'firebase',
   };
   // function GetToken() {
-  //   getToken();
+  //   const token = getToken();
+  //   return token;
   // }
+  // console.log('Token', getToken());
 
   return (
     <div>
