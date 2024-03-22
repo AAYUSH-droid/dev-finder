@@ -65,3 +65,15 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+// room table for storing room data
+export const room = pgTable('room', {
+  //refrencing room with userID incase user deletes his acc the room associated with him will also be deleted
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  description: text('description'),
+  tags: text('tags').notNull(),
+  githubRepo: text('githubRepo'),
+});

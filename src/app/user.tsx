@@ -1,6 +1,7 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
 import { useAuth } from '@clerk/nextjs';
+
 export default function GetLoggedInUser() {
   const { isLoaded, isSignedIn, user } = useUser();
 
@@ -13,6 +14,12 @@ export default function GetLoggedInUser() {
   if (!isLoaded || !isSignedIn) {
     return null;
   }
+  const GetTokenOptions = {
+    template: 'firebase',
+  };
+  // function GetToken() {
+  //   getToken();
+  // }
 
   return (
     <div>
@@ -20,6 +27,7 @@ export default function GetLoggedInUser() {
       <div>
         Hello, {userId} your current active session is {sessionId}
       </div>
+      <div>{/* <button onClick={GetToken}>Get Token</button> */}</div>
     </div>
   );
 }
