@@ -2,6 +2,7 @@
 
 import { db } from '@/db';
 import { Room, room } from '@/db/schema';
+import { revalidatePath } from 'next/cache';
 
 export async function createRoomAction(
   roomData: Omit<Room, 'id' | 'userId'>,
@@ -12,4 +13,6 @@ export async function createRoomAction(
   }
   //the user id entered here should be same as user.id in the users table
   await db.insert(room).values({ ...roomData, userId: userId });
+
+  revalidatePath('/');
 }

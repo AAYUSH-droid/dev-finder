@@ -5,6 +5,7 @@ import { SignIn, SignInButton, SignOutButton, useUser } from '@clerk/nextjs';
 import { UserButton, useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Header() {
   // const session = useSession();
@@ -14,7 +15,20 @@ export function Header() {
   return (
     <header className='bg-gray-100 dark:bg-gray-900 mx-auto'>
       <div className='items-center flex justify-between p-4 container'>
-        <h1>LOGO</h1>
+        {/* <h1>LOGO</h1> */}
+
+        <Link
+          href='/'
+          className='flex gap-2 items-center text-xl hover:underline'
+        >
+          <Image
+            src='/icon.png'
+            width='60'
+            height='60'
+            alt='the application icon of a magnifying glass'
+          />
+          DevFinder
+        </Link>
 
         <div className='items-center'>
           <div className='flex justify-between'>
