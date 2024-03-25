@@ -9,21 +9,37 @@ import Link from 'next/link';
 export function Header() {
   // const session = useSession();
 
-  const user = useAuth();
+  const userID = useAuth();
+  const { user } = useUser();
   return (
-    <header>
-      <div>
-        {user.isSignedIn ? (
-          <div className='  flex w-12 items-center justify-center rounded-lg bg-white p-2 hover:bg-gray-300'>
-            <UserButton afterSignOutUrl='/' />
+    <header className='bg-gray-100 dark:bg-gray-900 mx-auto'>
+      <div className='items-center flex justify-between p-4 container'>
+        <h1>LOGO</h1>
+
+        <div className='items-center'>
+          <div className='flex justify-between'>
+            {userID.isSignedIn ? (
+              <div className='flex justify-between items-center'>
+                <div className='flex w-12 items-center justify-center rounded-lg bg-white p-2 hover:bg-gray-300'>
+                  <UserButton afterSignOutUrl='/' />
+                </div>
+                <div className='ml-4'> Hi, {user?.firstName}</div>
+              </div>
+            ) : (
+              <div className='flex gap-3 font-bold items-center'>
+                <Button>
+                  <Link href='/auth/signin/instant'>Login</Link>
+                </Button>
+                <Button>
+                  <Link href='/auth/signup/instant'>Sign Up</Link>
+                </Button>
+              </div>
+            )}
+            <div className='ml-4'>
+              <ModeToggle />
+            </div>
           </div>
-        ) : (
-          <div className='  flex gap-3 font-bold '>
-            <Link href='/auth/signin/instant'>Login</Link>
-            <Link href='/auth/signup/instant'>Sign Up</Link>
-          </div>
-        )}
-        <ModeToggle />
+        </div>
       </div>
     </header>
   );
