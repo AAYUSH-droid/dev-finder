@@ -1,6 +1,7 @@
 import { getRoom } from '@/data-access/rooms';
 import { GithubIcon } from 'lucide-react';
 import Link from 'next/link';
+import { SplitTags, TagsList } from '@/components/tags-list';
 
 export default async function RoomPage(props: { params: { roomId: string } }) {
   const roomID = props.params.roomId;
@@ -9,13 +10,8 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
   if (!room) {
     return <div>Room not found</div>;
   }
+
   return (
-    // <div>
-    //   <div className='grid grid-cols-4 min-h-screen'>
-    //     <div className='col-span-3 bg-blue-400'>VIDEO PLAYER</div>
-    //     <div className='bg-red-500'>INFO PANEL{room?.name}</div>
-    //   </div>
-    // </div>
     <div className='grid grid-cols-4 min-h-screen'>
       <div className='col-span-3 p-4 pr-2'>
         {/* <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 min-h-screen">
@@ -41,10 +37,11 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
               Github Project
             </Link>
           )}
-
           <p className='text-base text-gray-600'>{room?.description}</p>
 
-          {/* <TagsList tags={splitTags(room.tags)} /> */}
+          <div className='flex gap-2 flex-wrap'>
+            <TagsList tags={SplitTags(room.tags)} />
+          </div>
         </div>
       </div>
     </div>
